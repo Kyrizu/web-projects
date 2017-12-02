@@ -1,4 +1,19 @@
 
+function getRandomRGB(){
+  var r = 0;
+  var b = 0;
+  var g = 0;
+  var sum = r+b+g;
+  
+  do{
+    r = Math.floor(Math.random()*255);
+    b = Math.floor(Math.random()*255);
+    g = Math.floor(Math.random()*255);
+  }while(sum % g < 30);
+  
+  return 'rgb('+r+','+g+','+b+')';
+}
+
 $(document).ready(function() {
     $("#gen").on("click", function() {
       $.getJSON("quotes.json", function(json) {
@@ -7,6 +22,15 @@ $(document).ready(function() {
         var quote = "\""+json[index]["quote"]+"\"";
         var author = "-"+json[index]["author"];
         
+        //Random colors 
+        var rgb = getRandomRGB();
+        
+        $("body").css('background', rgb);
+        $("h5").css('color', rgb);
+        $(".quote").css('color', rgb);
+        $("#gen").css('background', rgb);
+        $("#tweet").css('background', rgb);  
+          
         var tweet = quote + author;
         var hashtag = "quotes";
         var related = "freecodecamp";
