@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
     $("#gen").on("click", function() {
-      $.getJSON("quote.json", function(json) {
+      $.getJSON("quotes.json", function(json) {
         
         var index = Math.floor(Math.random()*json.length);
         var quote = "\""+json[index]["quote"]+"\"";
