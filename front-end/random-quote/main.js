@@ -23,29 +23,32 @@ $(document).ready(function() {
         url: 'https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1',
         success: function(data) {
           var post = data.shift();
-          quote = post.title;
-          author = (post.content);
+          author = post.title;
+          quote = '"'+(post.content).replace("<p>","").replace("</p>","")+'"';
+          
+          //Random colors 
+          var rgb = getRandomRGB();
+
+          $("body").css('background', rgb);
+          $("h5").css('color', rgb);
+          $(".quote").css('color', rgb);
+          $("#gen").css('background', rgb);
+          $("#tweet").css('background', rgb);  
+
+          var tweet = quote + author;
+          var hashtag = "quotes";
+          var related = "freecodecamp";
+          
+          //tweeter button
+          $("#tweet").attr('href', 'https://twitter.com/intent/tweet?hashtags='+hashtag+'&related='+related+'&text=' + window.encodeURIComponent(quote+" "+author));
+          
+          //quote fading
+          $("#quote, #author").fadeOut(function() {
+            $("#quote").html(quote).fadeIn(750);
+            $("#author").html(author).fadeIn(750);
+          });
         },
         cache: false
       });
-        //Random colors 
-        var rgb = getRandomRGB();
-        
-        $("body").css('background', rgb);
-        $("h5").css('color', rgb);
-        $(".quote").css('color', rgb);
-        $("#gen").css('background', rgb);
-        $("#tweet").css('background', rgb);  
-          
-        var tweet = quote + author;
-        var hashtag = "quotes";
-        var related = "freecodecamp";
-        
-        $("#tweet").attr('href', 'https://twitter.com/intent/tweet?hashtags='+hashtag+'&related='+related+'&text=' + window.encodeURIComponent(quote+" "+author));
-        $("#quote, #author").fadeOut(function() {
-          $("#quote").html(quote).fadeIn(750);
-          $("#author").html(author).fadeIn(750);
-        });
-       
     });
   });
