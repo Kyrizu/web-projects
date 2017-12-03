@@ -16,11 +16,11 @@ function getRandomRGB(){
 
 $(document).ready(function() {
     $("#gen").on("click", function() {
-      $.getJSON("quotes.json", function(json) {
-        
-        var index = Math.floor(Math.random()*json.length);
-        var quote = "\""+json[index]["quote"]+"\"";
-        var author = "-"+json[index]["author"];
+      var quote = "";
+      var author = "";
+      $.getJSON("https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&callback=", function(json) {
+        quote = json.content;
+        author = "<p>&mdash; " + json.title + "</p>";
         
         //Random colors 
         var rgb = getRandomRGB();
