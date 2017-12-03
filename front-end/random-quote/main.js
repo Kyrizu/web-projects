@@ -24,7 +24,7 @@ $(document).ready(function() {
         success: function(data) {
           var post = data.shift();
           author = post.title;
-          quote = '"'+(post.content).replace("<p>","").replace("</p>","")+'"';
+          quote = '"'+(post.content).replace("<p>","").replace("</p>","").replace("\n","")+'"\n';
           
           //Random colors 
           var rgb = getRandomRGB();
