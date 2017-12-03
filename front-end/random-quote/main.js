@@ -14,41 +14,46 @@ function getRandomRGB(){
   return 'rgb('+r+','+g+','+b+')';
 }
 
+function randomBackgroundColor(){
+  var rgb = getRandomRGB();
+
+  $("body").css('background', rgb);
+  $("h5").css('color', rgb);
+  $(".quote").css('color', rgb);
+  $("#gen").css('background', rgb);
+  $("#tweet").css('background', rgb); 
+}
+
 $(document).ready(function() {
-     $("#gen").on("click", function(e) {
-        var quote = "nothing";
-        var author = "none";
-        e.preventDefault();
-        $.ajax( {
-        url: 'https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1',
-        success: function(data) {
-          var post = data.shift();
-          author = post.title;
-          quote = '"'+(post.content).replace("<p>","").replace("</p>","").replace("\n","")+'"\n';
-          
-          //Random colors 
-          var rgb = getRandomRGB();
+  randomBackgroundColor();
+  $("#gen").on("click", function(e) {
+    var quote = "nothing";
+    var author = "none";
+    e.preventDefault();
+    $.ajax( {
+      url: 'https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1',
+      success: function(data) {
+        var post = data.shift();
+        author = post.title;
+        quote = '"'+(post.content).replace("<p>","").replace("</p>","").replace("\n","")+'"\n';
 
-          $("body").css('background', rgb);
-          $("h5").css('color', rgb);
-          $(".quote").css('color', rgb);
-          $("#gen").css('background', rgb);
-          $("#tweet").css('background', rgb);  
+        //Random colors 
+        randomBackgroundColor(); 
 
-          var tweet = quote + author;
-          var hashtag = "quotes";
-          var related = "freecodecamp";
-          
-          //tweeter button
-          $("#tweet").attr('href', 'https://twitter.com/intent/tweet?hashtags='+hashtag+'&related='+related+'&text=' + window.encodeURIComponent(quote+" "+author));
-          
-          //quote fading
-          $("#quote, #author").fadeOut(function() {
-            $("#quote").html(quote).fadeIn(750);
-            $("#author").html(author).fadeIn(750);
-          });
-        },
-        cache: false
-      });
+        var tweet = quote+" "+author;
+        var hashtag = "quotes";
+        var related = "freecodecamp";
+
+        //tweeter button
+        $("#tweet").attr('href', 'https://twitter.com/intent/tweet?hashtags='+hashtag+'&related='+related+'&text=' + window.encodeURIComponent(tweet));
+
+        //quote fading
+        $("#quote, #author").fadeOut(function() {
+          $("#quote").html(quote).fadeIn(750);
+          $("#author").html(author).fadeIn(750);
+        });
+      },
+      cache: false
     });
   });
+});
