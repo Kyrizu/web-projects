@@ -15,9 +15,6 @@ function getRandomRGB(){
 }
 
 $(document).ready(function() {
-    $("#gen").on("click", function() {
-      var quote = "";
-      var author = "";
      $("#gen").on("click", function(e) {
         var quote = "nothing";
         var author = "none";
@@ -49,5 +46,6 @@ $(document).ready(function() {
           $("#quote").html(quote).fadeIn(750);
           $("#author").html(author).fadeIn(750);
         });
+       
     });
   });
