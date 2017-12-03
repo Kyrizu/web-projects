@@ -18,10 +18,19 @@ $(document).ready(function() {
     $("#gen").on("click", function() {
       var quote = "";
       var author = "";
-      $.getJSON("http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&callback=", function(json) {
-        quote = json.content;
-        author = "<p>&mdash; " + json.title + "</p>";
-        
+     $("#gen").on("click", function(e) {
+        var quote = "nothing";
+        var author = "none";
+        e.preventDefault();
+        $.ajax( {
+        url: 'https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1',
+        success: function(data) {
+          var post = data.shift();
+          quote = post.title;
+          author = (post.content);
+        },
+        cache: false
+      });
         //Random colors 
         var rgb = getRandomRGB();
         
@@ -40,7 +49,5 @@ $(document).ready(function() {
           $("#quote").html(quote).fadeIn(750);
           $("#author").html(author).fadeIn(750);
         });
-          
-      });
     });
   });
