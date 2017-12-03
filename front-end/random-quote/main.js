@@ -1,5 +1,5 @@
 
-function getRandomRGB(){
+function getRandomRGB(num){
   var r = 0;
   var b = 0;
   var g = 0;
@@ -11,17 +11,24 @@ function getRandomRGB(){
     g = Math.floor(Math.random()*255);
   }while(sum % g < 30);
   
-  return 'rgb('+r+','+g+','+b+')';
+  var rr = 255 - r;
+  var rg = 255 - g;
+  var rb = 255 - b;
+  if(num == -1)
+    return 'rgb('+rr+','+rg+','+rb+')';
+  else
+    return 'rgb('+r+','+g+','+b+')';
 }
 
 function randomBackgroundColor(){
-  var rgb = getRandomRGB();
-
+  var rgb = getRandomRGB(1);
+  var inverse_rgb = getRandomRGB(-1);
   $("body").css('background', rgb);
   $("h5").css('color', rgb);
   $(".quote").css('color', rgb);
   $("#gen").css('background', rgb);
   $("#tweet").css('background', rgb); 
+  $(".fa-heart").css('color', inverse_rgb);
 }
 
 $(document).ready(function() {
