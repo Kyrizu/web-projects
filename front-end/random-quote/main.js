@@ -23,12 +23,12 @@ function randomBackgroundColor(){
   var rgb = rgbArr[0]
   var inverse_rgb = rgbArr[1];
   
-  $("body").css('background', rgb);
-  $("h5").css('color', rgb);
-  $(".quote").css('color', rgb);
-  $("#gen").css('background', rgb);
-  $("#tweet").css('background', rgb); 
-  $(".fa-heart").css('color', inverse_rgb);
+  $("body").animate({backgroundColor: rgb}, 1000);
+  $("#gen").animate({backgroundColor: rgb}, 350);
+  $("#tweet").animate({backgroundColor: rgb}, 350); 
+  $("h5").animate({color: rgb}, 1000);
+  $(".quote").animate({color: rgb}, 1000);
+  $(".fa-heart").animate({color: inverse_rgb}, 1000);
 }
 
 $(document).ready(function() {
@@ -41,14 +41,14 @@ $(document).ready(function() {
       url: 'https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1',
       success: function(data) {
         var post = data.shift();
-        author = post.title;
+        author = "-"+post.title;
         quote = (post.content);
 
         //Random colors 
         randomBackgroundColor(); 
         
         quote = '"'+$(quote).text()+'"';
-        var tweet = quote+"%0A-"+author;
+        var tweet = quote+"%0A"+author;
         var hashtag = "quotes";
         var related = "freecodecamp";
 
