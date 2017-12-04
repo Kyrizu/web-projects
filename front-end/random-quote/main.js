@@ -48,7 +48,7 @@ $(document).ready(function() {
         randomBackgroundColor(); 
         
         quote = '"'+$(quote).text()+'"';
-        var tweet = quote+" -"+author;
+        var tweet = quote+"%0A-"+author;
         var hashtag = "quotes";
         var related = "freecodecamp";
 
