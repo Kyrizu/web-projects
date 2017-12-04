@@ -34,25 +34,26 @@ function randomBackgroundColor(){
 $(document).ready(function() {
   randomBackgroundColor();
   $("#gen").on("click", function(e) {
-    var quote = "nothing";
-    var author = "none";
+    var quote = "";
+    var author = "";
     e.preventDefault();
     $.ajax( {
       url: 'https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1',
       success: function(data) {
         var post = data.shift();
         author = post.title;
-        quote = '"'+(post.content).replace("<p>","").replace("</p>","").replace("\n","")+'"\n';
+        quote = (post.content);
 
         //Random colors 
         randomBackgroundColor(); 
-
-        var tweet = quote+" "+author;
+        
+        quote = '"'+$(quote).text()+'"';
+        var tweet = quote+" -"+author;
         var hashtag = "quotes";
         var related = "freecodecamp";
 
         //tweeter button
-        $("#tweet").attr('href', 'https://twitter.com/intent/tweet?hashtags='+hashtag+'&related='+related+'&text=' + window.encodeURIComponent(tweet));
+        $("#tweet").attr('href', 'https://twitter.com/intent/tweet?hashtags='+hashtag+'&related='+related+'&text=' + (tweet));
 
         //quote fading
         $("#quote, #author").fadeOut(function() {
