@@ -14,15 +14,15 @@ function getRandomRGB(num){
   var rr = 255 - r;
   var rg = 255 - g;
   var rb = 255 - b;
-  if(num == -1)
-    return 'rgb('+rr+','+rg+','+rb+')';
-  else
-    return 'rgb('+r+','+g+','+b+')';
+  
+  return ['rgb('+r+','+g+','+b+')', 'rgb('+rr+','+rg+','+rb+')'];
 }
 
 function randomBackgroundColor(){
-  var rgb = getRandomRGB(1);
-  var inverse_rgb = getRandomRGB(-1);
+  var rgbArr = getRandomRGB();
+  var rgb = rgbArr[0]
+  var inverse_rgb = rgbArr[1];
+  
   $("body").css('background', rgb);
   $("h5").css('color', rgb);
   $(".quote").css('color', rgb);
