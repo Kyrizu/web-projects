@@ -1,15 +1,8 @@
 
 function getRandomRGB(num){
-  var r = 0;
-  var b = 0;
+  var r = Math.floor(Math.random()*200);
+  var b = Math.floor(Math.random()*200);
   var g = 0;
-  var sum = r+b+g;
-  
-  do{
-    r = Math.floor(Math.random()*255);
-    b = Math.floor(Math.random()*255);
-    g = Math.floor(Math.random()*255);
-  }while(sum % g < 30);
   
   var rr = 255 - r;
   var rg = 255 - g;
